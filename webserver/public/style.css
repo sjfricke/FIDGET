@@ -1,27 +1,40 @@
 
-.container
-{
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: 'white';
-	display: flex;
-	justify-content: center;
-	align-items: center;
+#fidgetBackground{
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    height: 400px;
+    width: 400px;
 }
 
-
-.fidget{
-
-  height:240px;
-  width: 240px;
-  background: url('https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5897/5897412_sd.jpg') no-repeat;
-  background-position: 22px 39px;
-  background-size: 296px 296px;
+#fidget{
+  height: 250px;
+  width: 250px;
+  position: absolute;
+  left: 75px;
+  top: 75px;
   animation: spin 5s cubic-bezier(.30,.60,.60,1);
+  z-index: 2;
+}
+@keyframes spin { 100% { transform: rotate(3600deg) }};
+
+#lightBackground{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#light{
+position: absolute;
+  height: 300px;
+  width: 300px;
+  bottom: 0;
 
 }
 
-@keyframes spin { 100% { transform: rotate(-3600deg) }};
+#garage{
+  left:0;
+  bottom:0;
+  height: 300px;
+  width: 300px;
+  position: absolute;
+}
