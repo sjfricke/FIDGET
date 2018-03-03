@@ -11,8 +11,8 @@
 	- `0` is stop
 	- `1` - `12` are speeds
 - `2` - Rotation value from Leap Motion
-	- `-1` - Rotate CCW
-	- `1` - Rotate CW
+	- `-1` - Rotate CW
+	- `1` - Rotate CCW
 - `3` - Toggle value from Leap Motion
 	- Value doesn't matter, toggles On/Off
 - `4` - 
