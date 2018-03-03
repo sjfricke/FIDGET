@@ -1,0 +1,26 @@
+{
+  "name": "fidget",
+  "version": "1.0.0",
+  "description": "Super awesome Fidget spinner hack... powered by soylent",
+  "main": "index.js",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "twilio": "^3.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjfricke/FIDGET.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sjfricke/FIDGET/issues"
+  },
+  "homepage": "https://github.com/sjfricke/FIDGET#readme"
+}
