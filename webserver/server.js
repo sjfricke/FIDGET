@@ -6,8 +6,7 @@ const path = require('path'); //Node.js module used for getting path of file
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const app = express();
 
-app.set('views', './views'); //says where in root directory the find files (./views)
-app.set('view engine', 'ejs'); //says which engine being used (ejs)
+
 app.use(express.static(path.join(__dirname, 'public'))); //sets all static file calls to
 
 
