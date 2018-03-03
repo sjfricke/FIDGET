@@ -16,12 +16,19 @@
   animation: spin 5s cubic-bezier(.30,.60,.60,1);
   z-index: 2;
 }
+@keyframes spin { 100% { transform: rotate(3600deg) }};
 
+#lightBackground{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 #light{
-  position: absolute;
+position: absolute;
   height: 300px;
   width: 300px;
   bottom: 0;
+
 }
 
 #garage{
@@ -31,5 +38,3 @@
   width: 300px;
   position: absolute;
 }
-
-@keyframes spin { 100% { transform: rotate(3600deg) }};
