@@ -5,18 +5,41 @@ const PORT =   3000;
 const path = require('path'); //Node.js module used for getting path of file
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const app = express();
-
+const bodyParser = require('body-parser'); //allows the use of req.body in POST request
 
 app.use(express.static(path.join(__dirname, 'public'))); //sets all static file calls to
 
+app.use(bodyParser.json()); //parses json and sets to body
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/sms', (req, res) => {
+  //Write code to send to fidget spinner.
+  var recvMesg = req.body.Body;
+  console.log (recvMesg);
+  //check if they said fidget or spinner
+  //check if they said go or stop
+  //send something back if  they didn't send the right message
   const twiml = new MessagingResponse();
-
-  twiml.message('Fidget spinner is spinning... grab some soylent /hoss!');
-
-  res.writeHead(200, {'Content-Type': 'text/xml'});
-  res.end(twiml.toString());
+  if(recvMesg.toLowerCase().indexOf('fidget')>=0||recvMesg.toLowerCase().indexOf('spinner')>=0){
+    if(recvMesg.toLowerCase().indexOf('go')>=0||recvMesg.toLowerCase().indexOf('on')>=0){
+      twiml.message('Okay starting the fidget spinner');
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+       return res.end(twiml.toString());
+    } else if(recvMesg.toLowerCase().indexOf('off')>=0||recvMesg.toLowerCase().indexOf('stop')>=0){
+      //stop
+      twiml.message('Okay stoping the fidget spinner');
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+       return res.end(twiml.toString());
+    }else{
+      twiml.message('Sorry... try entering stop fidget spinner or go fidget spinner');
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+       return res.end(twiml.toString());
+    }
+  } else{
+    twiml.message('Sorry... try entering stop fidget spinner or go fidget spinner');
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+     return res.end(twiml.toString());
+  }
 });
 
 http.createServer(app).listen(PORT, () => {
