@@ -11,6 +11,9 @@ int main(int argc, char *argv[]) {
   char* data;
   UdpServer myServer; // Creates server object
 
+  const int PORT = 8000;
+  const char IP[32] = "192.168.43.105";
+
   // first checks arguments
   if (argc < 3) {
     cout << ("ERROR: Need to pass IP and PORT\n./client <IP_of_server> <PORT_on_server>\n") << endl;
@@ -22,7 +25,7 @@ int main(int argc, char *argv[]) {
     cout << ("ERRPR: Malloc for data failed\n") << endl;
   }
 
-  status = myServer.connectSocket(argv[1], atoi(argv[2]));
+  status = myServer.connectSocket(IP, PORT);
 
   if (status != 0) {
     cout << "ERROR connecting with value: " << status << endl;

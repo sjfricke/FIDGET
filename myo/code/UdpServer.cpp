@@ -4,14 +4,14 @@ UdpServer::UdpServer() {
 }
 
 UdpServer::~UdpServer() {
-  close(socket_fd);
+//  close(socket_fd);
 }
 
 // used to setup and connect to server
 // returns 0 on success
 int UdpServer::connectSocket(const char* ip, int port) {
 
-  int status; // used to check status returns
+//  int status; // used to check status returns
 
   // SOCK_DGRAM for UDP
   socket_fd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -20,16 +20,18 @@ int UdpServer::connectSocket(const char* ip, int port) {
     return 1;
   }
 
-  server_addr.sin_addr.s_addr = inet_addr(ip); // sets IP of server
+ // server_addr.sin_addr.s_addr = inet_addr(ip); // sets IP of server
+
+  server_addr.sin_addr.S_un.S_addr = inet_addr(ip);
   server_addr.sin_family = AF_INET; // uses internet address domain
   server_addr.sin_port = htons(port); // sets PORT on server
 
-  printf("UDP: end connect, %d", status);
+ // printf("UDP: end connect, %d", status);
   return 0;
 }
 
 void UdpServer::closeSocket() {
-  close(socket_fd);
+ // close(socket_fd);
 }
 
 // sends message to all other users online
