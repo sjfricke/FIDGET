@@ -1,5 +1,6 @@
 const http = require('http');
 const express = require('express');
+const io = require('socket.io');
 const PORT =   3000;
 const path = require('path'); //Node.js module used for getting path of file
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
@@ -18,8 +19,6 @@ app.post('/sms', (req, res) => {
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
 });
-
-
 
 http.createServer(app).listen(PORT, () => {
   console.log('Express server listening on port 3000');

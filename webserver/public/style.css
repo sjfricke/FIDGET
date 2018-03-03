@@ -1,5 +1,27 @@
-body {
-    background-color: #000000;
-    margin: 0px;
-    overflow: hidden;
-  }
+
+.container
+{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: 'white';
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.fidget{
+
+  height:240px;
+  width: 240px;
+  background: url('https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5897/5897412_sd.jpg') no-repeat;
+  background-position: 22px 39px;
+  background-size: 296px 296px;
+  animation: spin 5s cubic-bezier(.30,.60,.60,1);
+
+}
+
+@keyframes spin { 100% { transform: rotate(-3600deg) }};
