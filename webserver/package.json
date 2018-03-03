@@ -4,6 +4,7 @@
   "description": "Super awesome Fidget spinner hack... powered by soylent",
   "main": "index.js",
   "dependencies": {
+    "dgram": "^1.0.1",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "socket.io": "^2.0.4",
