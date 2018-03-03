@@ -1,0 +1,15 @@
+{
+  "name": "leapmotion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "buffer": "^5.1.0",
+    "leapjs": "^0.6.4"
+  }
+}
