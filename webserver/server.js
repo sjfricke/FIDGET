@@ -11,6 +11,8 @@ app.use(express.static(path.join(__dirname, 'public'))); //sets all static file 
 
 
 app.post('/sms', (req, res) => {
+  //Write code to send to fidget spinner.
+
   const twiml = new MessagingResponse();
 
   twiml.message('Fidget spinner is spinning... grab some soylent /hoss!');
