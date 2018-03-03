@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "buffer": "^5.1.0",
     "leapjs": "^0.6.4"
   }
 }
