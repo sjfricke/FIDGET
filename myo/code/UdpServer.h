@@ -5,20 +5,22 @@
   /* See http://stackoverflow.com/questions/12765743/getaddrinfo-on-win32 */
   #include <winsock2.h>
   #include <Ws2tcpip.h>
+#pragma comment(lib,"ws2_32.lib") //Winsock Library
 #else
   /* Assume that any non-Windows platform uses POSIX-style sockets instead. */
   #include <sys/socket.h>
   #include <arpa/inet.h>
   #include <sys/types.h>
   #include <netinet/in.h>
+#include <unistd.h>
+#include <netdb.h>  /* Needed for getaddrinfo() and freeaddrinfo() */
 #endif
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include <unistd.h>
-#include <netdb.h>  /* Needed for getaddrinfo() and freeaddrinfo() */
+
 
 #define MAX_MSG_SIZE 256
 
