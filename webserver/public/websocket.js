@@ -24,6 +24,13 @@ function wsOnMessage(event) {
       break;
   case "closet":
       console.log("closet: " + value);
+      if(value == 1) {
+        closetRight();
+      } else if(value == -1){
+        closetLeft();
+      } elseif (value == 0) {
+        closetSelect();
+      }
       break;
   // case "":
   //     break;
