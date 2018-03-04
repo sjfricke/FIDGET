@@ -43,9 +43,6 @@ function updateCamera(){
 return false;
 };
 
-
-
-
 function updateTemperature(){
   document.getElementById('temperatureBackgroud');
   document.getElementById('temperatureGauge');
@@ -61,9 +58,6 @@ function updateGarage(up){
 return false;
  };
 
-
-
-
  function getDataUpdates() {
    const xmlHttp = new XMLHttpRequest();
    xmlHttp.open('GET', 'http://localhost:3000/data');
@@ -76,4 +70,5 @@ return false;
        document.getElementById('recentTwilo').innerHTML+=json[0];
      }
    };
+
  }
