@@ -94,12 +94,48 @@ body{
 }
 
 #closet {
+  position: absolute;
+  width: 600px;
+  height: 325px;
+  top: 0;
+  left: 0;
+}
+
+#closet_background {
+  position: absolute;
   width: 600px;
   height: 325px;
   top: 20px;
   left: 420px;
+  z-index: 1;
+}
+
+.shirt {
+  z-index: 2;
+  max-height: 275px;
   position: absolute;
-  background-color: yellow;
+  top: 35px;
+}
+
+#shirt0 {
+  z-index: 3;
+  left: 420px;
+}
+#shirt1 {
+  z-index: 4;
+  left: 435px;
+}
+#shirt2 {
+  z-index: 5;
+  left: 450px;
+}
+#shirt3 {
+  z-index: 6;
+  left: 465px;
+}
+#shirt4 {
+  z-index: 7;
+  left: 600px;
 }
 
 #joystick {

@@ -1,11 +1,15 @@
 var fidgetIndex = 0;
 const MAX_FIDGET_INDEX=3;
+const CL_LEFT_EDGE = 420;
+const CL_RIGHT_EDGE = 780;
+const CL_CENTER = 600;
 
 function init(){
   setWebSocket();
   updateFidget();
   updateLight();
   initGarage();
+  closetInit();
   updateTemperature();
   updateCamera();
   // updateJoystick();
@@ -101,3 +105,47 @@ garageUp.src=garageUp.src;
    };
 
  }
+
+var closetIndex = 4;
+var d_shirt = [];
+function closetInit() {
+  d_shirt[0] = document.getElementById("shirt0");
+  d_shirt[1] = document.getElementById("shirt1");
+  d_shirt[2] = document.getElementById("shirt2");
+  d_shirt[3] = document.getElementById("shirt3");
+  d_shirt[4] = document.getElementById("shirt4");
+}
+
+function closetLeft() {
+  if (closetIndex >= 4) { return; }
+
+  d_shirt[closetIndex].src = "images/shirt_" + closetIndex + "_side.png";
+  d_shirt[closetIndex].style.left = (CL_LEFT_EDGE + (closetIndex*15)) + "px";
+  d_shirt[closetIndex].style.zIndex = closetIndex + 3;
+
+
+  closetIndex++;
+
+  d_shirt[closetIndex].src = "images/shirt_" + closetIndex + ".png";  
+  d_shirt[closetIndex].style.left = CL_CENTER + "px";
+  d_shirt[closetIndex].style.zIndex = 100;
+}
+
+function closetRight() {
+  if (closetIndex <= 0) { return; }
+
+  d_shirt[closetIndex].src = "images/shirt_" + closetIndex + "_side.png";
+  d_shirt[closetIndex].style.left = (CL_RIGHT_EDGE - ((3 - closetIndex)*15)) + "px";
+  d_shirt[closetIndex].style.zIndex = closetIndex + 3;
+
+  closetIndex--;
+
+  d_shirt[closetIndex].src = "images/shirt_" + closetIndex + ".png";  
+  d_shirt[closetIndex].style.left = CL_CENTER + "px";
+  d_shirt[closetIndex].style.zIndex = 100;
+
+}
+
+function closetSelect() {
+
+}
