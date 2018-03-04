@@ -8,7 +8,8 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "socket.io": "^2.0.4",
-    "twilio": "^3.13.0"
+    "twilio": "^3.13.0",
+    "ws": "^4.1.0"
   },
   "devDependencies": {},
   "scripts": {

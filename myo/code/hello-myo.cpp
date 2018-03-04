@@ -118,10 +118,17 @@ public:
         std::cout << '\r';
 
         // Print out the orientation. Orientation data is always available, even if no arm is currently recognized.
+<<<<<<< HEAD
 
 
 		//std::cout << "roll: " << roll_w << "	    vertical: " << pitch_w << "    horizontal: " << yaw_w;
 
+=======
+        
+
+		//std::cout << "roll: " << roll_w << "	    vertical: " << pitch_w << "    horizontal: " << yaw_w;
+		
+>>>>>>> cb595768cba2f62eedb1644c966f75939881debe
 
         if (onArm) {
             // Print out the lock state, the currently recognized pose, and which arm Myo is being worn on.
@@ -246,7 +253,11 @@ public:
 		if (prevYaw > -1 && prevYaw < 4 && yaw_w > 15) {
 			swipeL = false;
 		}
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> cb595768cba2f62eedb1644c966f75939881debe
 	}
 
 	void swipeRight() {
@@ -277,7 +288,11 @@ public:
 	std::string fidCloset;
 	std::string fidget;
 	std::string closet;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> cb595768cba2f62eedb1644c966f75939881debe
 
     // This is set by onUnlocked() and onLocked() above.
     bool isUnlocked;

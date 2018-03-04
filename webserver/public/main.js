@@ -4,10 +4,10 @@ const MAX_FIDGET_INDEX=3;
 function init(){
   updateFidget();
   updateLight();
-  updateGarage();
+  initGarage();
   updateTemperature();
   updateCamera();
-  updateJoystick();
+  // updateJoystick();
 };
 
 
@@ -37,28 +37,55 @@ function updateLight(on){
   }
 }
 
-//Pass in on ==true if joystick is toggled. Pass in direction of joystick
-function updateJoystick(direction,on){
- if(direction=="left" && on){
-   document.getElementById('joystick').src="images/joystick-up-red.png";
- } else{
-  document.getElementById('joystick').src="images/joystick-up.png";
-}};
-
 
 
 function updateCamera(){
 return false;
 };
 
-
-
-
 function updateTemperature(){
   document.getElementById('temperatureBackgroud');
   document.getElementById('temperatureGauge');
 };
 
+function initGarage() {
+
+  var garageUp = document.getElementById('garageUp');
+  var garageDown = document.getElementById('garageDown');
+
+  garageUp.src=garageUp.src;
+      garageDown.src=garageDown.src;
+
+    garageUp.style.visibility="hidden";
+    garageDown.style.visibility="visible";
+}
+
 function updateGarage(up){
-return false;
+var garageUp = document.getElementById('garageUp');
+var garageDown = document.getElementById('garageDown');
+  if(up){
+garageDown.style.visibility="hidden";
+garageUp.style.visibility="visible";
+
+garageUp.src=garageUp.src;
+  }else{
+    garageUp.style.visibility="hidden";
+    garageDown.style.visibility="visible";
+
+    garageDown.src=garageDown.src;
+  }
  };
+
+ function getDataUpdates() {
+   const xmlHttp = new XMLHttpRequest();
+   xmlHttp.open('GET', 'http://localhost:3000/data');
+   xmlHttp.send(null);
+   xmlHttp.onreadystatechange = ()=>{
+     if(xmlHttp.readyState === XMLHttpRequest.DONE && xmlHttp.status === 200) {
+        var json =JSON.parse(xmlHttp.responseText);
+       document.getElementById('recentTwilo').innerHTML = '';
+       document.getElementById('recentTwilo').innerHTML+=json[0];
+     }
+   };
+
+ }
