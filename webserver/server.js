@@ -9,14 +9,13 @@ const bodyParser = require('body-parser'); //allows the use of req.body in POST 
 const WebSocket = require('ws');
 const innerWS = new WebSocket.Server({ port: 8000 });
 
-var arr=[];
+var arr = [];
 
 app.use(express.static(path.join(__dirname, 'public'))); //sets all static file calls to
 
 app.use(bodyParser.json()); //parses json and sets to body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/sms', (req, res) => {
-
   //Write code to send to fidget spinner.
   var recvMesg = req.body.Body;
   arr.push(recvMesg);
