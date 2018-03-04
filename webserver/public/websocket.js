@@ -9,7 +9,7 @@ function wsOnMessage(event) {
 
   switch(key) {
   case "joyX":
-    // do something with -> value 
+    // do something with -> value
     break;
   case "joyY":
     break;
@@ -19,10 +19,11 @@ function wsOnMessage(event) {
     break;
   case "tempReal":
       break;
-  // case "":
-  //     break;
-  // case "":
-  //     break;
+  case "fidget":
+      console.log("fidget: " + value);
+      break;
+  case "closet":
+      break;
   // case "":
   //     break;
   // case "":

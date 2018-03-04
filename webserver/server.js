@@ -153,6 +153,8 @@ function myoData(data) {
   var sec = data.split(",");
   //sec[0] == Fldget DataC
   //sec[1] == clostet Data
+  innerWS.broadcast("fidget", sec[0]);
+	innerWS.broadcast("closet", sec[1]);
 }
 
 function leapData(data) {
