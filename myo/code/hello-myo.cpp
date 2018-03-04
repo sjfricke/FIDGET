@@ -118,17 +118,10 @@ public:
         std::cout << '\r';
 
         // Print out the orientation. Orientation data is always available, even if no arm is currently recognized.
-        /*std::cout << '[' << std::string(roll_w, '*') << std::string(18 - roll_w, ' ') << ']'
-                  << '[' << std::string(pitch_w, '*') << std::string(18 - pitch_w, ' ') << ']'
-                  << '[' << std::string(yaw_w, '*') << std::string(18 - yaw_w, ' ') << ']';*/
-		//std::cout << "roll_w " << roll_w << std::endl;
-		//std::cout << "pitch_w " << pitch_w << std::endl;
-		//std::cout << "yaw_w " << yaw_w << std::endl;
+        
 
-		std::cout << "roll: " << roll_w << "	    vertical: " << pitch_w << "    horizontal: " << yaw_w;
-		//if(roll_w > 10){
-		//	myo->vibrate(myo::Myo::VibrationType::vibrationShort);
-		//}
+		//std::cout << "roll: " << roll_w << "	    vertical: " << pitch_w << "    horizontal: " << yaw_w;
+		
 
         if (onArm) {
             // Print out the lock state, the currently recognized pose, and which arm Myo is being worn on.
@@ -155,125 +148,118 @@ public:
 			else {
 				onOrOff = "Off";
 			}
-			std::cout << '[' << lockOrUnlock << ']'
+			/*std::cout << '[' << lockOrUnlock << ']'
 					  << '[' << lOrR << ']'
 		    			<< '[' << poseString << std::string(14 - poseString.size(), ' ') << ']'
 			     	<< '[' << onOrOff << ']';
         } else {
              //Print out a placeholder for the arm and pose when Myo doesn't currently know which arm it's on.
-            std::cout << '[' << std::string(8, ' ') << ']' << "[?]" << '[' << std::string(14, ' ') << ']' << '[' << onOrOff << ']';
+            std::cout << '[' << std::string(8, ' ') << ']' << "[?]" << '[' << std::string(14, ' ') << ']' << '[' << onOrOff << ']';*/
         }
 		
 		swipeLeft();
-		/*if (swipeL) {
+		if (swipeL) {
 			std::cout << "left swiped    ";
 		}
 		else {
-			std::cout << "                ";
-		}*/
+			std::cout << "";
+		}
 		swipeRight();
 		if (swipeR) {
 			std::cout << "right swiped    ";
 		}
 		else {
-			std::cout << "                ";
+			std::cout << "";
 		}
-		//finalData();
-		//std::cout << std::endl;
-		//std::cout << end;
+		prevYaw = yaw_w;
+		poseString = currentPose.toString();
+		std::cout << poseString;
+		std::cout << lOrR;
+		finalData();
+		std::cout << fidget;
+		std::cout << closet;
+		std::cout << std::endl;
         std::cout << std::flush;
 
     }
 
-	/*void setServerData(char* data) {
-		//sprintf(data, "%s,%s,%s,%s,%f,%f,%f", onOrOff, lOrR, lockOrUnlock, poseString, roll_w, pitch_w, yaw_w);
-		//std::cout << data;
-		std::string fidCloset;
-		std::string fidget;
-		if (strcmp(poseString.c_str(), "fingersSpread") == 0) {
-			fidgetCloset = !fidgetCloset;
-			if (fidgetCloset) {
-				fidCloset = "0:0";
-			} else {
-				fidCloset = "0:1";
-			}
-			
-		}
-		else if(strcmp(poseString.c_str(), "") == 0) {
-
-		}
-	}*/
-
 	void finalData() {
-		std::string fidCloset;
-		std::string fidget;
-		std::string closet;
-		if (strcmp(poseString.c_str(), "fingersSpread") == 0) {
-			fidgetCloset = !fidgetCloset;
-			if (fidgetCloset) {
-				fidCloset = "0:0";  //fidget
-				fidCloset;
+		if (strcmp(poseString.c_str(), "fist") == 0) {
+			fidget = "4:0";
+		}
+		else if (strcmp(lOrR.c_str(), "L") == 0) {
+			if (strcmp(poseString.c_str(), "waveOut") == 0) {
+				fidget = "4:-1";
+			}
+			else if (strcmp(poseString.c_str(), "waveIn") == 0) {
+				fidget = "4:1";
 			}
 			else {
-				fidCloset = "0:1";  //closet
+				fidget = "X:X";
 			}
 		}
-		if (fidgetCloset) {  //we have fidget
-			if (strcmp(poseString.c_str(), "fist") == 0) {
-				fidget = "4:0";
+		else if (strcmp(lOrR.c_str(), "R") == 0) {
+			if (strcmp(poseString.c_str(), "waveOut") == 0) {
+				fidget = "4:1";
 			}
-			if (strcmp(lOrR.c_str(), "L") == 0) {
-				if (strcmp(poseString.c_str(), "waveOut") == 0) {
-					fidget = "4:-1";
-				}
-				if (strcmp(poseString.c_str(), "fist") == 0) {
-					fidget = "4:1";
-				}
+			else if (strcmp(poseString.c_str(), "waveIn") == 0) {
+				fidget = "4:-1";
 			}
-			if (strcmp(lOrR.c_str(), "R") == 0) {
-				if (strcmp(poseString.c_str(), "waveOut") == 0) {
-					fidget = "4:1";
-				}
-				else if (strcmp(poseString.c_str(), "fist") == 0) {
-					fidget = "4:-1";
-				}
+			else {
+				fidget = "X:X";
 			}
 		}
-		else { //we have closet
-			if (swipeL) {
-				closet = "5:-1";
-			} 
-			if (swipeR) {
-				closet = "5:1";
-			}
-			if (strcmp(poseString.c_str(), "fist") == 0) {
-				closet = "5:0";
-			}
+		else {
+			fidget = "X:X";
 		}
-		std::cout << fidCloset;
-		std::cout << fidget;
-		std::cout << closet;
-		end = fidCloset + ", " + fidget + ", " + closet;
+
+
+
+		if (strcmp(poseString.c_str(), "fingersSpread") == 0) {
+			closet = "5:0";
+		}
+		else if (swipeL) {
+			closet = "5:-1";
+		}
+		else if (swipeR) {
+			closet = "5:1";
+		}
+		else {
+			closet = "X:X";
+		}
+		//std::cout << fidCloset;
+		//std::cout << fidget;
+		//std::cout << closet;
+		//end = fidCloset + ", " + fidget + ", " + closet;
 	}
 
 	void swipeLeft() {
-		if (prevYaw < yaw_w - 2) {
+		if (prevYaw < yaw_w) {
 			swipeL = true;
 		}
 		else {
 			swipeL = false;
 		}
-		prevYaw = yaw_w;
+		if (prevYaw < 19 && prevYaw > 15 && yaw_w > -1 && yaw_w < 3) {
+			swipeL = true;
+		}
+		if (prevYaw > -1 && prevYaw < 4 && yaw_w > 15) {
+			swipeL = false;
+		}
+		
 	}
 
 	void swipeRight() {
-		if (prevYaw > yaw_w + 2) {
+		if (prevYaw > yaw_w) {
 			swipeR = true;
 		}
+
 		else {
 			swipeR = false;
 		}
-		//prevYaw = yaw_w;
+		if (prevYaw < 19 && prevYaw > 15 && yaw_w > -1 && yaw_w < 3) {
+			swipeR = false;
+		}
 	}
 
     // These values are set by onArmSync() and onArmUnsync() above.
@@ -287,6 +273,10 @@ public:
 	std::string lockOrUnlock;
 	std::string onOrOff;
 	std::string poseString;
+	std::string prevPose;
+	std::string fidCloset;
+	std::string fidget;
+	std::string closet;
 	
 
     // This is set by onUnlocked() and onLocked() above.
@@ -350,7 +340,7 @@ int main(int argc, char** argv)
     while (1) {
         // In each iteration of our main loop, we run the Myo event loop for a set number of milliseconds.
         // In this case, we wish to update our display 20 times a second, so we run for 1000/20 milliseconds.
-        hub.run(1000/5);
+        hub.run(1000/10);
         // After processing events, we call the print() member function we defined above to print out the values we've
         // obtained from any events that have occurred.
         collector.print(myo);
