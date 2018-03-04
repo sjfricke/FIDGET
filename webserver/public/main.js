@@ -51,14 +51,29 @@ function updateCamera(){
 return false;
 };
 
-
-
-
 function updateTemperature(){
   document.getElementById('temperatureBackgroud');
   document.getElementById('temperatureGauge');
 };
 
 function updateGarage(up){
+  if(up){
+    document.getElementById('garage').src="images/garage_open.gif";
+  }
+  if(!up){
+    document.getElementById('garage').src="images/garage_close.gif"
+  }
 return false;
  };
+
+ function getDataUpdates(){
+   const xmlHttp = new XMLHttpRequest();
+   xmlHttp.open('GET','http://localhost:3000/data');
+   xmlHttp.send(null);
+   xmlHttp.onreadystatechange=()=>{
+     if(xmlHttp.readyState===xmlHttpRequest.DONE&&xmlHttp.status===200){
+       var text = xmlHttp.responseText;
+       document.getElementById('recentTwilo').innerHTML+=text;
+     }
+   }
+ }
