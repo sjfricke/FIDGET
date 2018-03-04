@@ -1,21 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500);
-*{
-  padding: 0;
-  margin:0;
-}
-a{
-	text-decoration: none;
-	color:#666;
-}
-a:hover{
-	color:#999;
-}
 
-button {
-	padding: 10px;
-	border-radius: 3px;
-	background: #E0E0E0;
-	border: #CCC 1px solid;
+body{
+  overflow: hidden;
+  width: auto;
+  height: auto;
+  margin:0;
+  background-color:  white;
+  font-family: "ubuntu", sans-serif;
+  font-size: 100%;
+  background: #f8f8f8;
 }
 
 p{
@@ -28,10 +21,6 @@ hr{
 	border: 0;
 	border-bottom: #CCC 2px solid;
 	margin: 30px auto;
-}
-
-.title{
-	font-size: 4em;
 }
 
 .wrap{
@@ -47,20 +36,6 @@ hr{
 	border:#CCC 1px solid;
 }
 
-.links{
-	margin:20px 0;
-	font-size: 0.75em;
-}
-body{
-  overflow: hidden;
-  width: auto;
-  height: auto;
-  margin:0;
-  background-color:  white;
-  font-family: "ubuntu", sans-serif;
-  font-size: 100%;
-  background: #f8f8f8;
-}
 
 #fidgetBackground{
   z-index: 1;
@@ -156,6 +131,9 @@ body{
   height: 100px;
   top: 570px;
   left: 270px;
+
+  transition: transform 1s;
+  transform-origin: 50% 50%;
   position: absolute;
 }
 
@@ -196,25 +174,6 @@ body{
 }
 
 
-.gifs a {
-  position: relative;
-  display: block;
-}
-
-.gif-preload{
-  display: none;
-}
-
-.gif-loading{
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  font-size: 40px;
-  color:#fff;
-  top:0;
-  left:0;
-}
-
 #camera {
   background-color: blue;
       width: 285px;
@@ -236,7 +195,7 @@ body{
     width: 175px;
     margin: 410px 50px 45px;
     transition: all 1s;
-    transform-origin: 50% 50%;
+
     z-index: 1;
 }
 
@@ -247,15 +206,17 @@ body{
     display: inline-block;
     padding: 1em;
     transition: transform 1s;
+    transform-origin: 50% 50%;
     z-index: 2;
 }
 
-html:hover .temperatureWrapper {
-	transform: rotate(180deg);
+
+/* html:hover .temperatureWrapper {
+	transform: rotate(45deg);
 }
 html:hover .temperatureInner {
-	transform: rotate(-180deg);
-}
+	transform: rotate(-45deg);
+} */
 
 
-@keyframes spin { 100% { transform: rotate(3600deg) }};
+@keyframes spin { 100% { transform: rotate(45000deg) }};

@@ -142,6 +142,7 @@ return false;
 function updateTemperature(){
   document.getElementById('temperatureBackgroud');
   document.getElementById('temperatureGauge');
+
 };
 
 function initGarage() {
@@ -156,6 +157,13 @@ function initGarage() {
     garageDown.style.visibility="visible";
 }
 
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+        if(updateGarage(true)){
+          updateGarage(false);
+        }
+    }
+}
 function updateGarage(up){
 var garageUp = document.getElementById('garageUp');
 var garageDown = document.getElementById('garageDown');
@@ -180,7 +188,7 @@ garageUp.src=garageUp.src;
      if(xmlHttp.readyState === XMLHttpRequest.DONE && xmlHttp.status === 200) {
         var json =JSON.parse(xmlHttp.responseText);
        document.getElementById('recentTwilo').innerHTML = '';
-       document.getElementById('recentTwilo').innerHTML+=json[this.length-1];
+       document.getElementById('recentTwilo').innerHTML+=json[json.length-1];
      }
    };
  }
