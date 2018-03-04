@@ -3,7 +3,7 @@ var webSocket;
 
 // decides what do when message arrives
 function wsOnMessage(event) {
-  console.log(event.data);
+  // console.log(event.data);
   var key = event.data.substring(0, event.data.indexOf(":"));
   var value = event.data.substr(event.data.indexOf(":") + 1);
 
@@ -23,7 +23,7 @@ function wsOnMessage(event) {
       console.log("fidget: " + value);
       break;
   case "closet":
-console.log("closet: " + value);
+      console.log("closet: " + value);
       break;
   // case "":
   //     break;
