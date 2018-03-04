@@ -8,6 +8,7 @@ const app = express();
 const bodyParser = require('body-parser'); //allows the use of req.body in POST request
 const WebSocket = require('ws');
 const innerWS = new WebSocket.Server({ port: 8000 });
+const clientSCP = require('scp2')
 
 var arr=[];
 
@@ -78,10 +79,13 @@ innerWS.broadcast = function broadcast(key, data) {
 /////////////////////////////
 /// DRAGON BOARD AUDIO //////
 /////////////////////////////
-const dragonAudio = new WebSocket('ws://192.168.43.151:8000');
+var cameraStart = false;
 
+const dragonAudio = new WebSocket('ws://192.168.43.151:8000');
 dragonAudio.on('open', function open() {
 	dragonAudio.send('0:0');
+	console.log("ATSETSET")
+	cameraStart = true;
 });
 
 dragonAudio.on('message', function incoming(data) {
@@ -117,14 +121,17 @@ net.createServer(function (tSocket) {
   // Handle incoming messages from clients.
   tSocket.on('data', function (data) {
   	var read = data.toString();
-	console.log(read);
+	//console.log(read);
   	var key = read.substring(0, read.indexOf(":"));
+  	console.log("TEST::::: "+ key);
   	if (key == 8) {
   		piData(read.substr(2));
   	} else if (key == 4) {
   		myoData(read.substr(2));
   	}else if (key == 2) {
-  		leapData(read.substr(2));
+  		leapLightData(read.substr(2));
+  	}else if (key == 1) {
+  		leapVolData(read.substr(2));
   	}
   });
 
@@ -146,6 +153,12 @@ function piData(data) {
 	innerWS.broadcast("joyBtn", sec[2]);
 	innerWS.broadcast("tempPot", sec[3]);
 	innerWS.broadcast("tempReal", sec[4]);
+
+	if (sec[1] == 1) {
+		dragonAudio.send('2:0');
+	} else if (sec[1] == -1) {
+		dragonAudio.send('1:0');
+	}
 }
 
 function myoData(data) {
@@ -157,13 +170,29 @@ function myoData(data) {
 	innerWS.broadcast("closet", sec[1]);
 }
 
-function leapData(data) {
-	console.log(data);
+function leapLightData(data) {
+		dragonAudio.send("0:"+data);
 }
-
+function leapVolData(data) {
+	console.log("vol: " + data);
+	if (data == NaN || data < 120 || data > 150 ){ return; }
+	dragonAudio.send("3:"+data);
+}
 // Put a friendly message on the terminal of the server.
 console.log("Chat server running at port 5000\n");
 
 process.on('uncaughtException',function(err){
    console.log('something terrible happened..')
 })
+
+var cameraCount = 0;
+var scpInterval = setInterval(function() {
+  if (cameraStart) {
+  	clientSCP.scp('linaro:linaro@192.168.43.151:/home/linaro/FIDGET/boards/dragonAudio/output.png',
+  			 "./public/images/camera" + cameraCount + ".png", function(err) {
+  				console.error(err);
+	})
+	innerWS.broadcast("camera", cameraCount);
+	cameraCount++;
+  }  
+}, 3000);

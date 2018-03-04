@@ -3,6 +3,7 @@ const MAX_FIDGET_INDEX=3;
 const CL_LEFT_EDGE = 420;
 const CL_RIGHT_EDGE = 780;
 const CL_CENTER = 600;
+var d_camera;
 
 function init(){
   setWebSocket();
@@ -13,6 +14,7 @@ function init(){
   updateTemperature();
   updateCamera();
   // updateJoystick();
+  d_camera = document.getElementById("camera");
 };
 
 function setWebSocket() {
@@ -147,5 +149,5 @@ function closetRight() {
 }
 
 function closetSelect() {
-
+  document.getElementById("cameraPhoto").src = d_shirt[closetIndex].src;
 }

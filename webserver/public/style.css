@@ -208,20 +208,27 @@ body{
 }
 
 #camera {
-  background-color: blue;
-      width: 285px;
-      height: 285px;
+      width: 480px;
+      height: 360px;
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 0px;
+      right: 30px;
+}
+#cameraPhoto {
+
+      position: absolute;
+    z-index: 7;
+    left: 1325px;
+    top: 100px;
+    
+    max-height: 275px;
 }
 .garage {
-      width: 285px;
-      height: 285px;
+      width: 200px;
+      height: 200px;
       position: absolute;
-      top: 20px;
-      left: 1075px;
-      right: 600px;
+      bottom: 130px;
+      left: 1100px;
 }
 .temperatureWrapper {
     position: fixed;

@@ -10,6 +10,11 @@ function wsOnMessage(event) {
   switch(key) {
   case "joyX":
     // do something with -> value
+    if (value == 1) {
+      updateFidget(true);
+    } else if (value == -1) {
+      updateFidget(false);
+    }
     break;
   case "joyY":
     break;
@@ -24,8 +29,11 @@ function wsOnMessage(event) {
       break;
   case "closet":
       break;
-  // case "":
-  //     break;
+  case "camera":
+      var a = "images/camera" + value + ".png";
+      // console.log(a);
+      d_camera.src = a;
+      break;
   // case "":
   //     break;
   // case "":
