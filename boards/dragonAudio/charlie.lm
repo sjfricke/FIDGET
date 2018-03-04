@@ -1,0 +1,90 @@
+Language model created by QuickLM on Sun Mar  4 00:12:35 EST 2018
+Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
+
+The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
+
+The code that was used to produce this language model is available in Open Source.
+Please visit http://www.speech.cs.cmu.edu/tools/ for more information
+
+The (fixed) discount mass is 0.5. The backoffs are computed using the ratio method.
+This model based on a corpus of 9 sentences and 20 words
+
+\data\
+ngram 1=20
+ngram 2=28
+ngram 3=19
+
+\1-grams:
+-0.9150 </s> -0.3010
+-0.9150 <s> -0.2447
+-1.8692 ALL -0.2951
+-1.8692 CHARLIE -0.2447
+-1.8692 DO -0.2951
+-1.8692 FIDGET -0.2951
+-1.8692 IS -0.2891
+-1.8692 KNOW -0.2891
+-1.8692 MUSIC -0.2447
+-1.8692 PLAY -0.2951
+-1.8692 SOYLENT -0.2447
+-1.8692 SPINNER -0.2447
+-1.8692 STAR -0.2447
+-1.8692 TEMPERATURE -0.2447
+-1.5682 THE -0.2891
+-1.8692 TOTO -0.2447
+-1.8692 WAY -0.2447
+-1.8692 WEATHER -0.2447
+-1.8692 WHAT -0.2951
+-1.8692 YOU -0.2951
+
+\2-grams:
+-1.2553 <s> ALL 0.0000
+-1.2553 <s> CHARLIE 0.0000
+-1.2553 <s> DO 0.0000
+-1.2553 <s> FIDGET 0.0000
+-1.2553 <s> PLAY 0.0000
+-1.2553 <s> SOYLENT 0.0000
+-1.2553 <s> TEMPERATURE 0.0000
+-1.2553 <s> TOTO 0.0000
+-1.2553 <s> WHAT 0.0000
+-0.3010 ALL STAR 0.0000
+-0.3010 CHARLIE </s> -0.3010
+-0.3010 DO YOU 0.0000
+-0.3010 FIDGET SPINNER 0.0000
+-0.3010 IS THE -0.1761
+-0.3010 KNOW THE -0.1761
+-0.3010 MUSIC </s> -0.3010
+-0.3010 PLAY MUSIC 0.0000
+-0.3010 SOYLENT </s> -0.3010
+-0.3010 SPINNER </s> -0.3010
+-0.3010 STAR </s> -0.3010
+-0.3010 TEMPERATURE </s> -0.3010
+-0.6021 THE WAY 0.0000
+-0.6021 THE WEATHER 0.0000
+-0.3010 TOTO </s> -0.3010
+-0.3010 WAY </s> -0.3010
+-0.3010 WEATHER </s> -0.3010
+-0.3010 WHAT IS 0.0000
+-0.3010 YOU KNOW 0.0000
+
+\3-grams:
+-0.3010 <s> ALL STAR
+-0.3010 <s> CHARLIE </s>
+-0.3010 <s> DO YOU
+-0.3010 <s> FIDGET SPINNER
+-0.3010 <s> PLAY MUSIC
+-0.3010 <s> SOYLENT </s>
+-0.3010 <s> TEMPERATURE </s>
+-0.3010 <s> TOTO </s>
+-0.3010 <s> WHAT IS
+-0.3010 ALL STAR </s>
+-0.3010 DO YOU KNOW
+-0.3010 FIDGET SPINNER </s>
+-0.3010 IS THE WEATHER
+-0.3010 KNOW THE WAY
+-0.3010 PLAY MUSIC </s>
+-0.3010 THE WAY </s>
+-0.3010 THE WEATHER </s>
+-0.3010 WHAT IS THE
+-0.3010 YOU KNOW THE
+
+\end\
