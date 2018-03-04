@@ -132,12 +132,14 @@ body{
 }
 
 #recentTwilo{
+  font-size: 80px;
+  text-align: center;
+  font-weight: bold;
   width: 600px;
   height: 150px;
-  top: 525px;
+  top: 535px;
   right: 685px;
   position: absolute;
-  background-color: orange;
 }
 
 #earthquake{

@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>FIDGET</title>
+    <title>SOYLENT FIDGET SPINNER</title>
   <link type="text/css" rel="stylesheet" href="style.css">
   </head>
   <body onload="init()">
@@ -30,16 +30,15 @@
     <div class="type-wrap">
 
     <div id = "recentTwilo" id="typed-strings" onload="getDataUpdates()">
-      <span>Dummy text</span>
+      <span  style="white-space:pre;" id="typed"></span>
     </div>
-    <span id="typed" style="white-space:pre;">
+    <span>
     </span>
     </div>
 
   <script type="text/javascript" src="lib/jquery-3.3.1.min.js"></script>
   <script src="websocket.js" type="text/javascript"></script>
   <script src="main.js" type="text/javascript"></script>
-
   <script src="typed.min.js" type="text/javascript"></script>
   <script src="demos.js"></script>
   <script type="text/javascript">window.setInterval(getDataUpdates, 500);</script>
