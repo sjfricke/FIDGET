@@ -21,11 +21,11 @@ function wsOnMessage(event) {
       break;
   case "fidget":
       console.log("fidget: " + value);
-      /*if(value == 0) {
-
+      if(value == 1) {
+          updateFidget(true);
       } else if(value == -1) {
-
-      } else if(value == 1) {
+          updateFidget(false);
+      } /*else if(value == 1) {
 
       }*/
       break;
