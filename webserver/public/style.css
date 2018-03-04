@@ -1,5 +1,64 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500);
+*{
+  padding: 0;
+  margin:0;
+}
+a{
+	text-decoration: none;
+	color:#666;
+}
+a:hover{
+	color:#999;
+}
+
+button {
+	padding: 10px;
+	border-radius: 3px;
+	background: #E0E0E0;
+	border: #CCC 1px solid;
+}
+
+p{
+	line-height: 2em;
+	margin:0 0 20px;
+	text-align: center;
+}
+
+hr{
+	border: 0;
+	border-bottom: #CCC 2px solid;
+	margin: 30px auto;
+}
+
+.title{
+	font-size: 4em;
+}
+
+.wrap{
+	max-width: 600px;
+	margin:50px auto;
+}
+
+.type-wrap{
+	margin:10px auto;
+	padding:20px;
+	background:#f0f0f0;
+	border-radius:5px;
+	border:#CCC 1px solid;
+}
+
+.links{
+	margin:20px 0;
+	font-size: 0.75em;
+}
 body{
   overflow: hidden;
+  width: auto;
+  height: auto;
+  background-color:  white;
+  font-family: "ubuntu", sans-serif;
+  font-size: 100%;
+  background: #f8f8f8;
 }
 
 #fidgetBackground{
@@ -91,6 +150,25 @@ body{
   left: 0;
 }
 
+.gifs a {
+  position: relative;
+  display: block;
+}
+
+.gif-preload{
+  display: none;
+}
+
+.gif-loading{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  color:#fff;
+  top:0;
+  left:0;
+}
+
 #camera {
   background-color: blue;
       width: 285px;
@@ -99,7 +177,7 @@ body{
       top: 10px;
       right: 10px;
 }
-#garage {
+.garage {
       width: 285px;
       height: 285px;
       position: absolute;

@@ -1,7 +1,7 @@
 const http = require('http');
 const express = require('express');
 const io = require('socket.io');
-const PORT =   3000;
+const PORT =  3000;
 const path = require('path'); //Node.js module used for getting path of file
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const app = express();
@@ -31,7 +31,7 @@ app.post('/sms', (req, res) => {
        return res.end(twiml.toString());
     } else if(recvMesg.toLowerCase().indexOf('off')>=0||recvMesg.toLowerCase().indexOf('stop')>=0){
       //stop
-      twiml.message('Out of soylent... sorry! Fidget spinner deactived.');
+      twiml.message('Your soylent powered fidget spinner deactivated!');
       res.writeHead(200, {'Content-Type': 'text/xml'});
        return res.end(twiml.toString());
     }else{
