@@ -7,7 +7,7 @@ function init(){
   updateGarage();
   updateTemperature();
   updateCamera();
-  updateJoystick();
+  // updateJoystick();
 };
 
 
@@ -37,22 +37,11 @@ function updateLight(on){
   }
 }
 
-//Pass in on ==true if joystick is toggled. Pass in direction of joystick
-function updateJoystick(direction,on){
- if(direction=="left" && on){
-   document.getElementById('joystick').src="images/joystick-up-red.png";
- } else{
-  document.getElementById('joystick').src="images/joystick-up.png";
-}};
-
 
 
 function updateCamera(){
 return false;
 };
-
-
-
 
 function updateTemperature(){
   document.getElementById('temperatureBackgroud');
@@ -60,5 +49,26 @@ function updateTemperature(){
 };
 
 function updateGarage(up){
+  if(up){
+    document.getElementById('garage').src="images/garage_open.gif";
+  }
+  if(!up){
+    document.getElementById('garage').src="images/garage_close.gif"
+  }
 return false;
  };
+
+ function getDataUpdates() {
+   const xmlHttp = new XMLHttpRequest();
+   xmlHttp.open('GET', 'http://localhost:3000/data');
+   xmlHttp.send(null);
+   xmlHttp.onreadystatechange = ()=>{
+     if(xmlHttp.readyState === XMLHttpRequest.DONE && xmlHttp.status === 200) {
+        var json =JSON.parse(xmlHttp.responseText);
+       //console.log(json);
+       document.getElementById('recentTwilo').innerHTML = '';
+       document.getElementById('recentTwilo').innerHTML+=json[0];
+     }
+   };
+
+ }

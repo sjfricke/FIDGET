@@ -8,7 +8,7 @@
 - `1` - Speed of Leap Motion
 	- Sends int
 	- `0` is stop
-	- `1` - `12` are speeds
+	- `1` - `10` are speeds
 - `2` - Rotation value from Leap Motion
 	- `-1` - Rotate CW
 	- `0` - Toggle On/Off
