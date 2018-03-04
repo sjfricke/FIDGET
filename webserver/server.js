@@ -164,6 +164,6 @@ function leapData(data) {
 // Put a friendly message on the terminal of the server.
 console.log("Chat server running at port 5000\n");
 
-process.on('uncaughtException',function(err){
+/*process.on('uncaughtException',function(err){
    console.log('something terrible happened..')
-})
+})*/
