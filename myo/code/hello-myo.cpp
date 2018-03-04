@@ -163,22 +163,22 @@ public:
 
 		swipeLeft();
 		if (swipeL) {
-			std::cout << "left swiped    ";
+			//std::cout << "left swiped    ";
 		}
 		else {
-			std::cout << "";
+			//std::cout << "";
 		}
 		swipeRight();
 		if (swipeR && !swipeL) {
-			std::cout << "right swiped    ";
+			//std::cout << "right swiped    ";
 		}
 		else {
-			std::cout << "";
+			//std::cout << "";
 		}
 		prevYaw = yaw_w;
 		poseString = currentPose.toString();
-		std::cout << poseString;
-		std::cout << lOrR;
+		//std::cout << poseString;
+		//std::cout << lOrR;
 		finalData();
 		end = fidget + closet;
 		std::cout << fidget;
@@ -221,16 +221,16 @@ public:
 
 
 		if (strcmp(poseString.c_str(), "fingersSpread") == 0) {
-			closet = "5:0";
+			closet = ",0";
 		}
 		else if (swipeL) {
-			closet = "5:-1";
+			closet = ",-1";
 		}
 		else if (swipeR) {
-			closet = "5:1";
+			closet = ",1";
 		}
 		else {
-			closet = "X:X";
+			closet = ",X";
 		}
 		//std::cout << fidCloset;
 		//std::cout << fidget;

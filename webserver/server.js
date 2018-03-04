@@ -103,9 +103,7 @@ net.createServer(function (tSocket) {
   	if (key == 8) {
   		piData(read.substr(2));
   	} else if (key == 4) {
-  		myoDataFidget(read.substr(2));
-  	} else if (key == 5) {
-  		myoDataCloset(read.substr(2));
+  		myoData(read.substr(2));
   	}else if (key == 2) {
   		leapData(read.substr(2));
   	}
@@ -126,12 +124,11 @@ function piData(data) {
 	//Joy_X, Joy_y, Joy_Btn, Pot, Temp
 }
 
-function myoDataCloset(data) {
+function myoData(data) {
 	console.log(data);
-}
-
-function myoDataFidget(data) {
-	console.log(data);
+  var sec = data.split(",");
+  //sec[0] == Fldget DataC
+  //sec[1] == clostet Data
 }
 
 function leapData(data) {
