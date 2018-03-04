@@ -8,10 +8,15 @@ static cmd_ln_t *config;
 // mic in variables
 static ad_rec_t *ad;
 static int16_t adbuf[PS_BUF_SIZE];
-static uint32_t buf_count;
 static int32_t k;
 
 char const* voice_str;
+
+const char* A_TOTO = "Toto.wav";
+const char* A_ALL_STAR = "All_Star.wav";
+const char* A_SOYLENT = "Soylent_green.wav";
+const char* A_SONG_NOT = "Song_not_in_library.wav";
+const char* A_KNOW_WAY = "I_know_the_way.wav";
 
 static char command[256];
 
@@ -55,7 +60,7 @@ void voiceDictionarySetup() {
 }
 
 int voiceCommand() {
-
+  
   if ((ad = ad_open_dev(PS_ALSA_VOICE_MIC_HW, 16000)) == NULL) {
     fprintf(stderr, "Failed to open audio device\n");
     exit(-1);
@@ -126,9 +131,7 @@ int playAudio(const char* clip) {
 
 int commandDetect(char const* voice_str) {
 
-  char* detect;
-
-  printf("DEBUG - Said: %s\n", voice_str);
+  fprintf(stdout, "DEBUG - Said: %s\n", voice_str);
 
   if(strstr(voice_str, "CHARLIE") == NULL){
     return 0;

@@ -11,6 +11,10 @@
 
 extern server_t* g_server;
 
+int S_BUTTON;
+int S_TOUCH;
+int S_LED;
+
 void socketCallback( int type, const char* value) {
   // To declare variables inside case you need to enable a scope with { }
   printf("type: %d\t value: %s\n", type, value);
@@ -19,7 +23,8 @@ void socketCallback( int type, const char* value) {
   switch(type) {
 
   case 0:
-      break;
+    GpioSetValue(S_LED, atoi(value));
+    break;
 
   case 1: {
     break;
@@ -33,102 +38,56 @@ void socketCallback( int type, const char* value) {
   }
 }
 
-void* pollButton(void* notinUse){
-  struct pollfd pfd;
-  int fd;
-  char buf;
-  GpioInput(115);
-  
-  fd = open("/sys/class/gpio/gpio115/value", O_RDONLY);
-  if (fd < 0) {
-    puts("ERROR: Could not open file:\n");
-    return (void*) -1;
-  }
-  
-  pfd.fd = fd;
-  pfd.events = POLLPRI;
-  
-  // consume any prior interrupt
-  lseek(fd, 0, SEEK_SET);
-  read(fd, &buf, 1);
-  
-  while(1) {
-    poll(&pfd, 1, -1);
-    
-    lseek(fd, 0, SEEK_SET);
-    read(fd, &buf, 1);
-
-    // buf is 0x30 or 0x31
-    broadcastInt("15", buf & 0x1);
-  }
-}
-
-void* pollTouch(void* notinUse){
-  struct pollfd pfd;
-  int fd;
-  char buf;
-  GpioInput(36);
-  
-  fd = open("/sys/class/gpio/gpio36/value", O_RDONLY);
-  if (fd < 0) {
-    puts("ERROR: Could not open file:\n");
-    return (void*) -1;
-  }
-  
-  pfd.fd = fd;
-  pfd.events = POLLPRI;
-  
-  // consume any prior interrupt
-  lseek(fd, 0, SEEK_SET);
-  read(fd, &buf, 1);
-  
-  while(1) {
-    poll(&pfd, 1, -1);
-    
-    lseek(fd, 0, SEEK_SET);
-    read(fd, &buf, 1);
-
-    // buf is 0x30 or 0x31
-    broadcastInt("16", buf & 0x1);
-  }
-}
-
 void* pollAccel(void* notInUse) {
 
+  char message[64];
   float x, y, z;
+  int l_button = 0;
+  int l_touch = 0;
   AccelSetup(0);
 
-  AccelGetValue(0, &a, &b, &c);
+  while(1) {
 
-  
-  
+    if (l_button == 0 && GpioGetValue(S_BUTTON) == 1) {
+      broadcastInt("15", 1);
+    }
+    l_button = GpioGetValue(S_BUTTON);
+    if (l_touch == 0 && GpioGetValue(S_TOUCH) == 1) {
+      broadcastInt("16", 1);
+    }
+    l_touch = GpioGetValue(S_TOUCH);
+       
+    AccelGetValue(0, &x, &y, &z);
+    
+    sprintf(message, "%f,%f,%f", x,y,z);
+    broadcastString("17", message);
+    sleep(1);
+  }
 }
 
 int main ( int argc, char* argv[] ) {
 
-  pthread_t button_thread;
-  pthread_t touch_tread;
+  pthread_t accel_thread;
   int rc;
   
-  voiceHardwareSetup();
+  //  voiceHardwareSetup();
   voiceDictionarySetup();
+
+  S_TOUCH = GpioInputPin(23);
+  S_BUTTON = GpioInputPin(27);
+  S_LED = GpioInputPin(33);
   
   g_server = (server_t*)malloc(sizeof(server_t));
   g_server->port = 8000;
   g_server->onSocketMessage = socketCallback;
 
   startServer();
-
-  rc = pthread_create(&button_thread, NULL, pollButton, NULL);
-  if (rc) {
-    printf("ERROR: Can't create button thread");
-  }
-
-  rc = pthread_create(&touch_thread, NULL, pollTouch, NULL);
-  if (rc) {
-    printf("ERROR: Can't create touch thread");
-  }
   
+  rc = pthread_create(&accel_thread, NULL, pollAccel, NULL);
+  if (rc) {
+    printf("ERROR: Can't create accel thread");
+  }
+
   // main infinite loop
   while(1) {
     voiceCommand();

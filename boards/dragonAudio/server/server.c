@@ -291,6 +291,7 @@ static void* serverDaemon() {
     socket_con = accept(socket_fp, (struct sockaddr *)&client, &socket_size);
   }
 
+  fprintf(stderr, "SERVER POLL ENDED %d\n", 0);
   pthread_exit(NULL);
 }
 
@@ -309,7 +310,6 @@ void startServer() {
 
   if (status < 0) {
     printf("--SERVER-- ERROR: Server didn't start up correctly\n");
-    exit(1);
   }
 
 }

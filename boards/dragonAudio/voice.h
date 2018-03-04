@@ -20,12 +20,6 @@
 
 #define PS_ALSA_VOICE_MIC_HW "plughw:0,2"
 
-const char* A_TOTO = "Toto.wav";
-const char* A_ALL_STAR = "All_Star.wav";
-const char* A_SOYLENT = "Soylent_green.wav";
-const char* A_SONG_NOT = "Song_not_in_library.wav";
-const char* A_KNOW_WAY = "I_know_the_way.wav";
-
 void voiceHardwareSetup();
 
 void voiceDictionarySetup();
