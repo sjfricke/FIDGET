@@ -7,29 +7,76 @@
 #include "voice.h"
 #include "server/server.h"
 #include "modules/gpio.h"
-#include "modules/accel.h"
 
 extern server_t* g_server;
 
-int S_BUTTON;
-int S_TOUCH;
-int S_LED;
+#define A1 33
+#define A2 34
+#define B1 28
+#define B2 35
+
+void setStep(int w1, int w2, int x1, int x2) {
+  GpioSetValue(A1, w1);
+  GpioSetValue(A2, w2);
+  GpioSetValue(B1, x1);
+  GpioSetValue(B2, x2);
+}
+
+void forward(int delay, int steps) {
+  int i;
+  for (i = 0; i < steps; i++)  {
+    setStep(1,0,0,1);
+    usleep(delay);
+    setStep(0,1,0,1);
+    usleep(delay);
+    setStep(0,1,1,0);
+    usleep(delay);
+    setStep(1,0,1,0);
+    usleep(delay);
+  }
+}
+
+void backward(int delay, int steps) {
+  int i;
+  for (i = 0; i < steps; i++)  {
+    setStep(1,0,0,1);
+    usleep(delay);
+    setStep(0,1,0,1);
+    usleep(delay);
+    setStep(0,1,1,0);
+    usleep(delay);
+    setStep(1,0,1,0);
+    usleep(delay);
+  }
+}
+
 
 void socketCallback( int type, const char* value) {
   // To declare variables inside case you need to enable a scope with { }
+  char command_d[256];
   printf("type: %d\t value: %s\n", type, value);
-
-  // printf("DEBUG - Data called back of %d : %s\n", type, value);
+  
+  printf("************************\nDEBUG - Data called back of %d : %s\n", type, value);
   switch(type) {
 
   case 0:
-    GpioSetValue(S_LED, atoi(value));
+    GpioSetValue(12, atoi(value));
     break;
 
   case 1: {
+    forward(5000, 32);
     break;
   }
   case 2:
+    backward(5000, 32);
+    break;
+
+  case 3: {
+    sprintf(command_d, "amixer -c 0 cset iface=MIXER,name='RX3 Digital Volume' %d", atoi(value));
+    system(command_d);
+    break;
+  }
+  case 4:
      break;
 
   default:
@@ -38,52 +85,41 @@ void socketCallback( int type, const char* value) {
   }
 }
 
-void* pollAccel(void* notInUse) {
+void* pollPhoto(void* notInUse) {
 
-  char message[64];
-  float x, y, z;
-  int l_button = 0;
-  int l_touch = 0;
-  AccelSetup(0);
+  char command[256];
+  sprintf(command, "ffmpeg -i /dev/video0 -s 480x360 -frames 1 ./output.png -y");
 
   while(1) {
-
-    if (l_button == 0 && GpioGetValue(S_BUTTON) == 1) {
-      broadcastInt("15", 1);
-    }
-    l_button = GpioGetValue(S_BUTTON);
-    if (l_touch == 0 && GpioGetValue(S_TOUCH) == 1) {
-      broadcastInt("16", 1);
-    }
-    l_touch = GpioGetValue(S_TOUCH);
-       
-    AccelGetValue(0, &x, &y, &z);
-    
-    sprintf(message, "%f,%f,%f", x,y,z);
-    broadcastString("17", message);
-    sleep(1);
+    system(command);
+    usleep(500000);
   }
+
+  return NULL;
+  
 }
 
 int main ( int argc, char* argv[] ) {
 
-  pthread_t accel_thread;
+  pthread_t photo_thread;
   int rc;
   
   //  voiceHardwareSetup();
   voiceDictionarySetup();
 
-  S_TOUCH = GpioInputPin(23);
-  S_BUTTON = GpioInputPin(27);
-  S_LED = GpioInputPin(33);
-  
+  GpioOutput(12, 1);
+  GpioOutput(A1, 0);
+  GpioOutput(A2, 0);
+  GpioOutput(B1, 0);
+  GpioOutput(B2, 0);
+
   g_server = (server_t*)malloc(sizeof(server_t));
   g_server->port = 8000;
   g_server->onSocketMessage = socketCallback;
 
   startServer();
   
-  rc = pthread_create(&accel_thread, NULL, pollAccel, NULL);
+  rc = pthread_create(&photo_thread, NULL, pollPhoto, NULL);
   if (rc) {
     printf("ERROR: Can't create accel thread");
   }

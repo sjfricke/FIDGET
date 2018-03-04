@@ -16,9 +16,19 @@ function wsOnMessage(event) {
   case "joyBtn":
     break;
   case "tempPot":
+
+    var i;
+    document.getElementsByClassName("temperatureWrapper")[0].style.transform = "rotate(" + (-40 + (i * 10)) + "deg)"
+    document.getElementsByClassName("temperatureInner")[0].style.transform = "rotate(" + (-40 + (i * 10)) + "deg)"
+
     break;
   case "tempReal":
-      break;
+    var i;
+
+    document.getElementById("temperaturePotentimeter").style.transform = "rotate(" + (-40 + (i * 10)) + "deg)"
+
+
+    break;
   case "fidget":
       console.log("fidget: " + value);
       if(value == 1) {
