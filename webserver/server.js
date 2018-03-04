@@ -6,6 +6,7 @@ const path = require('path'); //Node.js module used for getting path of file
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const app = express();
 const bodyParser = require('body-parser'); //allows the use of req.body in POST request
+var arr=[];
 
 app.use(express.static(path.join(__dirname, 'public'))); //sets all static file calls to
 
@@ -13,8 +14,10 @@ app.use(bodyParser.json()); //parses json and sets to body
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/sms', (req, res) => {
+
   //Write code to send to fidget spinner.
   var recvMesg = req.body.Body;
+  arr.push(recvMesg);
   console.log (recvMesg);
   //check if they said fidget or spinner
   //check if they said go or stop
@@ -40,6 +43,11 @@ app.post('/sms', (req, res) => {
     res.writeHead(200, {'Content-Type': 'text/xml'});
      return res.end(twiml.toString());
   }
+});
+
+app.get('/data', (req, res) => {
+  res.json(JSON.parse(JSON.stringify(arr)));
+  res.end();
 });
 
 http.createServer(app).listen(PORT, () => {

@@ -7,24 +7,23 @@ body{
   height: 385px;
   width: 385px;
   position: fixed;
-  margin: 10px 900px px 10px;
+  margin: 10px 900px auto 10px;
 }
 
 #fidget{
-  height: 250px;
-  width: 250px;
-  position: absolute;
-  margin: 85px auto 70px 70px;
-  animation: spin 5s cubic-bezier(.30,.60,.60,1);
-  z-index: 2;
-}
-
+  height: 170px;
+      width: 170px;
+      position: absolute;
+      margin: 130px auto 70px 110px;
+      animation: spin 5s cubic-bezier(.30,.60,.60,1);
+      z-index: 2;
+  }
 #lightbulb {
     position: fixed;
-    height: 340px;
-    width: 340px;
+    height: 215px;
+    width: 215px;
     top: 400px;
-    left: 375px;
+    left: 1120px;
 }
 
 #garage{
@@ -36,19 +35,19 @@ body{
 }
 
 #closet {
-  width: 740px;
-height: 375px;
-top: 10px;
-left: 410px;
-position: absolute;
-background-color: yellow;
+  width: 600px;
+  height: 325px;
+  top: 20px;
+  left: 420px;
+  position: absolute;
+  background-color: yellow;
 }
 
 #joystick {
-    width: 200px;
-    height: 200px;
-    top: 85px;
-    right: 350px;
+    width: 215px;
+    height: 215px;
+    top: 400px;
+    right: 55px;
     position: absolute;
 }
 
@@ -57,14 +56,18 @@ background-color: yellow;
 }
 
 #temperaturePotentimeter{
-
+  width: 100px;
+  height: 100px;
+  top: 570px;
+  left: 270px;
+  position: absolute;
 }
 
 #voiceStream{
   width: 600px;
   height: 150px;
-  top: 400px;
-  right: 360px;
+  top: 360px;
+  right: 685px;
   position: absolute;
   background-color: orange;
 }
@@ -72,8 +75,8 @@ background-color: yellow;
 #recentTwilo{
   width: 600px;
   height: 150px;
-  top: 565px;
-  right: 360px;
+  top: 525px;
+  right: 685px;
   position: absolute;
   background-color: orange;
 }
@@ -81,39 +84,46 @@ background-color: yellow;
 #earthquake{
   background-color: red;
   width: 100vw;
-  right: 10px;
-  height: 200px;
+  right: 0;
+  height: 110px;
   position: absolute;
   bottom: 10px;
-  left: 10px;
+  left: 0;
 }
 
 #camera {
   background-color: blue;
-  width: 340px;
-  height: 350px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+      width: 285px;
+      height: 285px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
 }
-
+#garage {
+      width: 285px;
+      height: 285px;
+      position: absolute;
+      top: 20px;
+      left: 1075px;
+      right: 600px;
+}
 .temperatureWrapper {
-  position: fixed;
-width: 325px;
-margin: 400px 25px 45px;
-transition: all 1s;
-transform-origin: 50% 50%;
-z-index: 1;
-  }
+    position: fixed;
+    width: 175px;
+    margin: 410px 50px 45px;
+    transition: all 1s;
+    transform-origin: 50% 50%;
+    z-index: 1;
+}
 
 
 .temperatureInner {
-  position: absolute;
-  margin: 615px 800px 45px 170px;
-	display: inline-block;
-	padding: 1em;
-	transition: transform 1s;
-  z-index: 2;
+    position: absolute;
+    margin: 450px 700px 50px 105px;
+    display: inline-block;
+    padding: 1em;
+    transition: transform 1s;
+    z-index: 2;
 }
 
 html:hover .temperatureWrapper {
