@@ -55,6 +55,7 @@ body{
   overflow: hidden;
   width: auto;
   height: auto;
+  margin:0;
   background-color:  white;
   font-family: "ubuntu", sans-serif;
   font-size: 100%;
@@ -177,16 +178,23 @@ body{
   right: 685px;
   position: absolute;
 }
-
-#earthquake{
-  background-color: red;
-  width: 100vw;
-  right: 0;
-  height: 110px;
-  position: absolute;
+.canvasCont{
   bottom: 10px;
-  left: 0;
+  width: 100vw;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+      right: 0;
+      height: 110px;
+      left: 0;
 }
+
+#canvas {
+  bottom: 0;
+  position: absolute;
+
+}
+
 
 .gifs a {
   position: relative;
