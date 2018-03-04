@@ -16,7 +16,11 @@
     <img id="temperatureBackgroud" src="images/thermostat.png" class="temperatureWrapper">
     <img id="temperatureGauge" class="temperatureInner" src="images/thermostat_ring.png">
 
-    <div id="earthquake"></div>
+    <div class="wrapper"><img id = "temperaturePotentimeter" src="images/knob_2.png" class="inner">
+
+<div class="canvasCont">
+    <canvas id="canvas"></canvas>
+</div>
     <div id="closet">
       <img id="closet_background" src="images/closet_background.png">
       <img id="shirt0" class="shirt" src="images/shirt_0_side.png">
@@ -33,15 +37,13 @@
     <img id="garageUp" class="garage" src="images/garage_open.gif">
     <img id="garageDown" class="garage" src="images/garage_close.gif">
 
-    <img id = "temperaturePotentimeter" src="images/knob_2.png">
     <div id = "voiceStream"></div>
-    <div class="type-wrap">
 
-    <div id = "recentTwilo" id="typed-strings" onclick="getDataUpdates()">
-      <span  style="white-space:pre;" id="typed"></span>
-    </div>
-    <span>
-    </span>
+    <div class="type-wrap" id="recentTwilo">
+    <div id="typed-strings">
+    <div onload="getDataUpdates()"</div>
+        </div>
+      <span id="typed" style="white-space:pre;"></span>
     </div>
 
   <script type="text/javascript" src="lib/jquery-3.3.1.min.js"></script>

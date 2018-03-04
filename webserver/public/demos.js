@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     typeSpeed: 20,
     backSpeed: 20,
     startDelay: 1000,
+    loop: false,
+    loopCount: Infinity,
     onComplete: function(self) { prettyLog('onComplete ' + self) },
     preStringTyped: function(pos, self) { prettyLog('preStringTyped ' + pos + ' ' + self); },
     onStringTyped: function(pos, self) { prettyLog('onStringTyped ' + pos + ' ' + self) },
@@ -83,4 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function prettyLog(str) {
   console.log('%c ' + str, 'color: green; font-weight: bold;');
+}
+
+function toggleLoop(typed) {
+  if (typed.loop) {
+    typed.loop = false;
+  } else {
+    typed.loop = true;
+  }
 }

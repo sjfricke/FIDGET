@@ -1,14 +1,14 @@
 // Twilio Credentials
-const accountSid = 'ACef58797557d275b055feb5fd2d66e416';
-const authToken = '97062eda4e85e5b10ddd8541d1ff8af3';
+const accountSid = 'AC879ee0070f72c20229bb64294455a8e0';
+const authToken = 'ee3f263433a7528cc17731f42c33fc82';
 
 // require the Twilio module and create a REST client
 const client = require('twilio')(accountSid, authToken);
 
 client.messages
   .create({
-    to: '+2068897536',
-    from: '+13236895513',
+    to: '+2063213257',
+    from: '+13236895583',
     body: 'Hello from Charlie: The original Soylent Fidget Spinner App!',
   })
   .then(message => console.log(message.sid));
