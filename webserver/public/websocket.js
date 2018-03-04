@@ -36,14 +36,21 @@ function wsOnMessage(event) {
     break;
   case "fidget":
       console.log("fidget: " + value);
+      if(value == 1) {
+          updateFidget(true);
+      } else if(value == -1) {
+          updateFidget(false);
+      } /*else if(value == 1) {
+
+      }*/
       break;
   case "closet":
       console.log("closet: " + value);
-      if(value == 1) {
+      if(value == -1) {
         closetRight();
-      } else if(value == -1){
+      } else if(value == 1){
         closetLeft();
-      } elseif (value == 0) {
+      } else if (value == 0) {
         closetSelect();
       }
       break;
