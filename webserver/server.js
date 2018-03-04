@@ -61,7 +61,7 @@ http.createServer(app).listen(PORT, () => {
 /////////////////////////////
 const dragonAudio = new WebSocket('ws://192.168.43.151:8000');
 
-dragonAudio.on('open', function open() { 
+dragonAudio.on('open', function open() {
 	dragonAudio.send('0:0');
 });
 
@@ -86,7 +86,7 @@ net.createServer(function (tSocket) {
 
 
   // Identify this client
-  tSocket.name = tSocket.remoteAddress + ":" + tSocket.remotePort 
+  tSocket.name = tSocket.remoteAddress + ":" + tSocket.remotePort
   console.log(tSocket.name + " has joined!");
 
   // Put this new client in the list
@@ -103,8 +103,10 @@ net.createServer(function (tSocket) {
   	if (key == 8) {
   		piData(read.substr(2));
   	} else if (key == 4) {
-  		myoData(read.substr(2));
-  	} else if (key == 2) {
+  		myoDataFidget(read.substr(2));
+  	} else if (key == 5) {
+  		myoDataCloset(read.substr(2));
+  	}else if (key == 2) {
   		leapData(read.substr(2));
   	}
   });
@@ -114,7 +116,7 @@ net.createServer(function (tSocket) {
     clients.splice(clients.indexOf(tSocket), 1);
     console.log(tSocket.name + " left the chat.\n");
   });
-  
+
   // Send a message to all clients
 
 }).listen(5000);
@@ -124,7 +126,11 @@ function piData(data) {
 	//Joy_X, Joy_y, Joy_Btn, Pot, Temp
 }
 
-function myoData(data) {
+function myoDataCloset(data) {
+	console.log(data);
+}
+
+function myoDataFidget(data) {
 	console.log(data);
 }
 

@@ -23,6 +23,10 @@ public:
     {
     }
 
+	std::string getEnd() {
+		return end;
+	}
+
     // onUnpair() is called whenever the Myo is disconnected from Myo Connect by the user.
     void onUnpair(myo::Myo* myo, uint64_t timestamp)
     {
@@ -118,17 +122,10 @@ public:
         std::cout << '\r';
 
         // Print out the orientation. Orientation data is always available, even if no arm is currently recognized.
-<<<<<<< HEAD
 
 
 		//std::cout << "roll: " << roll_w << "	    vertical: " << pitch_w << "    horizontal: " << yaw_w;
 
-=======
-        
-
-		//std::cout << "roll: " << roll_w << "	    vertical: " << pitch_w << "    horizontal: " << yaw_w;
-		
->>>>>>> cb595768cba2f62eedb1644c966f75939881debe
 
         if (onArm) {
             // Print out the lock state, the currently recognized pose, and which arm Myo is being worn on.
@@ -183,6 +180,7 @@ public:
 		std::cout << poseString;
 		std::cout << lOrR;
 		finalData();
+		end = fidget + closet;
 		std::cout << fidget;
 		std::cout << closet;
 		std::cout << std::endl;
@@ -253,11 +251,7 @@ public:
 		if (prevYaw > -1 && prevYaw < 4 && yaw_w > 15) {
 			swipeL = false;
 		}
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> cb595768cba2f62eedb1644c966f75939881debe
 	}
 
 	void swipeRight() {
@@ -288,12 +282,6 @@ public:
 	std::string fidCloset;
 	std::string fidget;
 	std::string closet;
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> cb595768cba2f62eedb1644c966f75939881debe
-
     // This is set by onUnlocked() and onLocked() above.
     bool isUnlocked;
 
@@ -309,12 +297,12 @@ int main(int argc, char** argv)
 	char* data;
 	UdpServer myServer; // Creates server object
 
-	data = (char*)malloc(sizeof(char) * MAX_MSG_SIZE);
+	data = (char*)malloc(sizeof(char) * MAX_MESSAGE_BUFFER);
 	if (data == NULL) {
 		std::cout << ("ERRPR: Malloc for data failed\n") << std::endl;
 	}
 
-	status = myServer.connectSocket("192.168.43.105", 8000);
+	status = myServer.connectSocket("127.0.0.1", 5000);
 
 	if (status != 0) {
 		std::cout << "ERROR connecting with value: " << status << std::endl;
@@ -355,11 +343,12 @@ int main(int argc, char** argv)
     while (1) {
         // In each iteration of our main loop, we run the Myo event loop for a set number of milliseconds.
         // In this case, we wish to update our display 20 times a second, so we run for 1000/20 milliseconds.
-        hub.run(1000/10);
+        hub.run(1000/1);
         // After processing events, we call the print() member function we defined above to print out the values we've
         // obtained from any events that have occurred.
         collector.print(myo);
 		//collector.setServerData(data);
+		myServer.send(collector.getEnd());
 		//myServer.send(data, strlen(data));
     }
 

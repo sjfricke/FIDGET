@@ -6,46 +6,47 @@ UdpServer::UdpServer() {
 UdpServer::~UdpServer() {
 //  close(socket_fd);
 }
-
 // used to setup and connect to server
 // returns 0 on success
-int UdpServer::connectSocket(const char* ip, int port) {
+int UdpServer::connectSocket( std::string ip, int port ) {
 
-//  int status; // used to check status returns
+  int status; // used to check status returns
+  
+  socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+  if (socket_fd < 0) { printf("socket() ERROR\n"); return 1; }
 
-  // SOCK_DGRAM for UDP
-  socket_fd = socket(AF_INET, SOCK_DGRAM, 0);
-  if (socket_fd < 0) {
-    printf("UDP: socket() ERROR: %d", socket_fd);
-    return 1;
-  }
-
- // server_addr.sin_addr.s_addr = inet_addr(ip); // sets IP of server
-
-  server_addr.sin_addr.S_un.S_addr = inet_addr(ip);
+  server_addr.sin_addr.s_addr = inet_addr(ip.c_str()); // sets IP of server
   server_addr.sin_family = AF_INET; // uses internet address domain
   server_addr.sin_port = htons(port); // sets PORT on server
 
- // printf("UDP: end connect, %d", status);
-  return 0;
-}
+  status = connect(socket_fd, (struct sockaddr*) &server_addr, sizeof(server_addr));
+  if (status < 0) { printf("connect() ERROR\n"); return 2; }
 
-void UdpServer::closeSocket() {
- // close(socket_fd);
+  
+  printf("end connect, %d\n", status);
+  return 0;
 }
 
 // sends message to all other users online
 // returns 0 on success
-int UdpServer::send(char* message, int message_size) {
+int UdpServer::send(std::string message ) {
   int status;
-
-  // WARNING: Can't send message size greater then MaxBuffer
-  // No reason to check since these should be small packets
-  status = sendto(socket_fd, message, message_size, 0, (struct sockaddr*) &server_addr, sizeof(server_addr));
+  
+  status = sendto(socket_fd, message.c_str() ,strlen(message.c_str()) , 0, (struct sockaddr*) &server_addr, sizeof(server_addr));
   if (status < 0) {
-    printf("UDP: sendto() ERROR: %d", status);
-    return 1;
+    printf("sendto() ERROR\n"); return 1;
+  } else {
+    return 0;
   }
+}
 
-  return 0;
+int UdpServer::send_c(char*  message ) {
+  int status;
+  
+  status = sendto(socket_fd, message ,strlen(message) , 0, (struct sockaddr*) &server_addr, sizeof(server_addr));
+  if (status < 0) {
+    printf("sendto() ERROR\n"); return 1;
+  } else {
+    return 0;
+  }
 }

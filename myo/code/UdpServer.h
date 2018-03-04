@@ -19,10 +19,12 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 #include <errno.h>
 
 
-#define MAX_MSG_SIZE 256
+
+#define MAX_MESSAGE_BUFFER 1024
 
 class UdpServer {
 
@@ -31,21 +33,22 @@ class UdpServer {
   UdpServer();
   ~UdpServer();
 
+
   // used to setup and connect to server
   // returns 0 on success
-  int connectSocket(const char* ip, int port);
-
-  void closeSocket();
+  int connectSocket(std::string ip, int port);
 
   // sends message to all other users online
   // returns 0 on success
-  int send(char* message, int message_size);
+  int send(std::string message);
 
- private:
-  struct sockaddr_in server_addr; // socket struct object
-  int socket_fd;                  // holds socket file discriptor
+  int send_c(char* message);
+private:
 
-  char message_recv[MAX_MSG_SIZE];
+	struct sockaddr_in server_addr; // socket struct object
+	int socket_fd;                  // holds socket file discriptor
+	char msg_buffer_out[MAX_MESSAGE_BUFFER];     // outgoing messages
+
 };
 
 #endif // H_UDPSERVER_H
