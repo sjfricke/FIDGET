@@ -200,7 +200,7 @@ public:
 				fidget = "4:1";
 			}
 			else {
-				fidget = "4:X";
+				fidget = "X:X";
 			}
 		}
 		else if (strcmp(lOrR.c_str(), "R") == 0) {
@@ -211,11 +211,11 @@ public:
 				fidget = "4:-1";
 			}
 			else {
-				fidget = "4:X";
+				fidget = "X:X";
 			}
 		}
 		else {
-			fidget = "4:X";
+			fidget = "X:X";
 		}
 
 

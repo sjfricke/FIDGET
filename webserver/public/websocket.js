@@ -23,6 +23,7 @@ function wsOnMessage(event) {
       console.log("fidget: " + value);
       break;
   case "closet":
+console.log("closet: " + value);
       break;
   // case "":
   //     break;
