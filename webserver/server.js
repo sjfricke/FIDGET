@@ -7,6 +7,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const app = express();
 const bodyParser = require('body-parser'); //allows the use of req.body in POST request
 const WebSocket = require('ws');
+const innerWS = new WebSocket.Server({ port: 8000 });
 
 var arr=[];
 
@@ -55,6 +56,24 @@ http.createServer(app).listen(PORT, () => {
   console.log('Express server listening on port 3000');
 });
 
+//////////////////////////
+///// Inner Web Socket ///
+//////////////////////////
+innerWS.on('connection', function connection(ws) {
+  ws.on('message', function incoming(message) {
+    console.log('received: %s', message);
+  });
+
+});
+
+// Broadcast to all.
+innerWS.broadcast = function broadcast(key, data) {
+  innerWS.clients.forEach(function each(client) {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(key + ":" + data);
+    }
+  });
+};
 
 /////////////////////////////
 /// DRAGON BOARD AUDIO //////
@@ -122,6 +141,11 @@ net.createServer(function (tSocket) {
 function piData(data) {
 	var sec = data.split(",");
 	//Joy_X, Joy_y, Joy_Btn, Pot, Temp
+	innerWS.broadcast("joyX", sec[0]);
+	innerWS.broadcast("joyY", sec[1]);
+	innerWS.broadcast("joyBtn", sec[2]);
+	innerWS.broadcast("tempPot", sec[3]);
+	innerWS.broadcast("tempReal", sec[4]);
 }
 
 function myoData(data) {
@@ -134,7 +158,6 @@ function myoData(data) {
 function leapData(data) {
 	console.log(data);
 }
-
 
 // Put a friendly message on the terminal of the server.
 console.log("Chat server running at port 5000\n");
