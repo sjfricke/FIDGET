@@ -9,11 +9,33 @@
 #include <iostream>
 #include <cstring>
 #include "Leap.h"
+#include <sstream>
+  /* Assume that any non-Windows platform uses POSIX-style sockets instead. */
+  #include <sys/socket.h>
+  #include <arpa/inet.h>
+  #include <sys/types.h>
+  #include <netinet/in.h>
+#include <unistd.h>
+#include <netdb.h>  /* Needed for getaddrinfo() and freeaddrinfo() */
+
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <errno.h>
+
+#define IP "192.168.43.105"
+#define PORT 5000
+#define MAX_MESSAGE_BUFFER 1024
 
 using namespace Leap;
 uint8_t prevFingerCount = 0;
-int prevNormal = 0;
+int prevNormal = 1;
 float prevPinch = 0.0;
+
+struct sockaddr_in server_addr; // socket struct object
+int socket_fd;                  // holds socket file discriptor
+char msg_buffer_out[MAX_MESSAGE_BUFFER];     // outgoing messages
 
 class SampleListener : public Listener {
   public:
@@ -82,19 +104,22 @@ void SampleListener::onFrame(const Controller & controller) {
       // documentation sayas pinchStrengh deprecated and to use pinchDistance, button
       // pinchDistance not available as a method.
 
-      if (pinch < 0.89) {
-         const Vector normal = hands[0].palmNormal();
-         float normalVec = normal.y;
-         if (normalVec < 0.0 && prevNormal != -1) {
-            std::cout << "2:-1" << std::endl;
-            prevNormal = -1;
-         } else if (normalVec > 0.0 && prevNormal != 1) {
-            std::cout << "2:1" << std::endl;
-            prevNormal = 1;
+      if (pinch >= 0.89 && prevNormal != 1) {
+         std::cout << "2:1 " << pinch << " " << prevNormal << std::endl;
+         prevNormal = 1;
+
+         int status = sendto(socket_fd, "2:1" ,4 , 0, (struct sockaddr*) &server_addr, sizeof(server_addr));
+         if (status < 0) {
+           printf("sendto() ERROR\n"); return;
          }
-      } else if (prevNormal != 0){
-         std::cout << "2:0" << std::endl;
+      } else if ( pinch < 0.89 && prevNormal != 0){
+         std::cout << "2:0 " << pinch << " " << prevNormal << std::endl;
          prevNormal = 0;
+
+         int status = sendto(socket_fd, "2:0" ,4 , 0, (struct sockaddr*) &server_addr, sizeof(server_addr));
+         if (status < 0) {
+           printf("sendto() ERROR\n"); return;
+         }
       }
    } else if (hands.count() >= 2) {
       // Volume control
@@ -105,8 +130,14 @@ void SampleListener::onFrame(const Controller & controller) {
          numberOfFingers += fingers.extended().count();
       }
       if (prevFingerCount != numberOfFingers) {
-         std::cout << "1:" << numberOfFingers * 3 + 120 << std::endl;
-         prevFingerCount = numberOfFingers;
+         std::string count = "1:";
+	      count += std::to_string( numberOfFingers * 3 + 120);
+    	   std::cout << count << std::endl;
+        	 prevFingerCount = numberOfFingers;
+          int status = sendto(socket_fd, count.c_str() ,strlen(count.c_str()) , 0, (struct sockaddr*) &server_addr, sizeof(server_addr));
+          if (status < 0) {
+           printf("sendto() ERROR\n"); return;
+          }
       }
    }
 }
@@ -141,9 +172,24 @@ int main(int argc, char** argv) {
   // Create a sample listener and controller
   SampleListener listener;
   Controller controller;
-
   // Have the sample listener receive events from the controller
   controller.addListener(listener);
+
+
+  int status; // used to check status returns
+
+  socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+  if (socket_fd < 0) { printf("socket() ERROR\n"); return 1; }
+
+  server_addr.sin_addr.s_addr = inet_addr(IP); // sets IP of server
+  server_addr.sin_family = AF_INET; // uses internet address domain
+  server_addr.sin_port = htons(PORT); // sets PORT on server
+
+  status = connect(socket_fd, (struct sockaddr*) &server_addr, sizeof(server_addr));
+  if (status < 0) { printf("connect() ERROR\n"); return 2; }
+
+
+  printf("end connect, %d\n", status);
 
   if (argc > 1 && strcmp(argv[1], "--bg") == 0)
     controller.setPolicy(Leap::Controller::POLICY_BACKGROUND_FRAMES);
